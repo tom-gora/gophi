@@ -27,13 +27,13 @@ func ParseArgs() (*Conf, error) {
 		tbl := table.New("Flag", "Type", "Description", "Default")
 		tbl.WithHeaderFormatter(color.New(color.FgCyan).SprintfFunc())
 		tbl.AddRow("-h, --help", "boolean", "Print this message.", "")
-		tbl.AddRow("-s, --source-json-file", "string", "Path to the JSON menu configuration file. (Mandatory)", "")
+		tbl.AddRow("-m, --menu-config", "string", "Path to the JSON menu configuration file. (Mandatory)", "")
 		tbl.AddRow("-e, --exec", "string", "Command to execute as returned from picker.", "")
 		tbl.Print()
 	}
 
-	flag.StringVar(&cfg.SourceJSONFilePath, "s", "", "Path to the JSON menu configuration file.")
-	flag.StringVar(&cfg.SourceJSONFilePath, "source-json-file", "", "Path to the JSON menu configuration file.")
+	flag.StringVar(&cfg.SourceJSONFilePath, "m", "", "Path to the JSON menu configuration file.")
+	flag.StringVar(&cfg.SourceJSONFilePath, "menu-config", "", "Path to the JSON menu configuration file.")
 	flag.StringVar(&cfg.ExecCmd, "e", "", "Command to execute as returned from picker.")
 	flag.StringVar(&cfg.ExecCmd, "exec", "", "Command to execute as returned from picker.")
 
