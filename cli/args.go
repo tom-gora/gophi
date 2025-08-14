@@ -39,12 +39,8 @@ func ParseArgs() (*Conf, error) {
 
 	flag.Parse()
 
-	if cfg.SourceJSONFilePath != "" && cfg.ExecCmd != "" {
-		return nil, fmt.Errorf("only one of -m/--menu-config or -e/--exec must be provided")
-	}
-
-	if cfg.SourceJSONFilePath == "" && cfg.ExecCmd == "" {
-		return nil, fmt.Errorf("either -m/--menu-config or -e/--exec must be provided")
+	if cfg.SourceJSONFilePath == "" {
+		return nil, fmt.Errorf("-m/--menu-config is mandatory")
 	}
 
 	return cfg, nil
