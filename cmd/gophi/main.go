@@ -35,20 +35,21 @@ func main() {
 		os.Exit(1)
 	}
 
-	if cfg.ExecCmd == "" {
+	if cfg.SelectedOpt == "" {
 		for _, task := range tasks {
 			if task.Name == "" {
 				continue
 			}
 			icon := task.Icon
 			if icon == "" {
-				icon = "system-run"
+				fmt.Printf("%s\n", task.Name)
+			} else {
+				fmt.Printf("%s\x00icon\x1f%s\n", task.Name, icon)
 			}
-			fmt.Printf("%s\x00icon\x1f%s\n", task.Name, icon)
 		}
 		os.Exit(0)
 	} else {
-		selectedTaskName := cfg.ExecCmd
+		selectedTaskName := cfg.SelectedOpt
 
 		var selectedTask *Task
 		for i := range tasks {
@@ -63,9 +64,11 @@ func main() {
 			os.Exit(1)
 		}
 
-		commandToExecute := selectedTask.Command
-		if commandToExecute == "" {
-			commandToExecute = selectedTask.Name
+		var commandToExecute string
+		if cfg.DefaultExec != "" {
+			commandToExecute = fmt.Sprintf("%s %s", cfg.DefaultExec, selectedTaskName)
+		} else {
+			commandToExecute = selectedTask.Command
 		}
 
 		cmd := exec.Command("bash", "-c", commandToExecute)
